@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD de Usuarios</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="display-4">Usuarios</h1>
+    <form action="/users" method="POST">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Nombre" name="name" required>
+          <% if (errors && errors.find(error => error.param === 'name')) { %>
+            <div class="text-danger mt-2"><%= errors.find(error => error.param === 'name').msg %></div>
+          <% } %>
+        </div>
+        <div class="col">
+          <input type="email" class="form-control" placeholder="Email" name="email" required>
+          <% if (errors && errors.find(error => error.param === 'email')) { %>
+            <div class="text-danger mt-2"><%= errors.find(error => error.param === 'email').msg %></div>
+          <% } %>
+        </div>
+        <div class="col">
+          <input type="password" class="form-control" placeholder="Contraseña" name="password" required>
+          <% if (errors && errors.find(error => error.param === 'password')) { %>
+            <div class="text-danger mt-2"><%= errors.find(error => error.param === 'password').msg %></div>
+          <% } %>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Usuario</button>
+      </div>
+    </form>
+    <hr>
+    <h2 class="mb-4">Lista de Usuarios</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach((user) => { %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <a href="/users/edit/<%= user._id %>" class="btn btn-warning btn-sm">Editar</a>
+              <a href="/users/delete/<%= user._id %>" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <!-- Enlace a Bootstrap JS (opcional) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
